@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+    <title>Sony</title>
+    <style>
+        body{padding: 0; margin: 0;}
+        main{width: 100%;margin: auto;}
+        #imgS{position:relative;float:right;width:200px;}
+        #imgS img{width: 100%;object-fit: cover;object-position: top center;}
+        div#board{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding:25px;
+            text-align: center;
+            border-radius:50%;
+            color:white;
+            transform: translate(-80%,-10%);
+            background-color: blueviolet;
+        }
+        #writeBoard{float: left;width: 100%;}
+        div#board div#pe{
+            float: right;
+            width: 25px;
+            height: 25px;
+            border-radius: 100% 100% 0% 100%;
+            transform: translate(50%,40%) rotate(-15deg);
+            background: blueviolet;
+        }
+       
+    </style>
+</head>
+<body>
+    <main>
+        <figure id="imgS">
+            <img src="src/img/IA.png" alt="Sony">
+            <input type="button" value="Ouvir">
+           <div id="board">
+            <div id="writeBoard"></div>
+            <div id="pe"></div>
+           </div>
+                
+        </figure>
+    </main>
+    <script src="src/Sony/Sony.js"></script>
+    <script src="src/index.js"></script>
+</body>
+</html>
