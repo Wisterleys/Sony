@@ -3,6 +3,7 @@ class Sony{
     constructor(obj){
         this.speech = window.SpeechRecognition || window.webkitSpeechRecognition
         this.audio = this.speech?new this.speech():""
+        this.btn=""
         this.speak="Ola! Meu nome é Sony, Habilite seu microfone para falar comigo!";
         this.board = obj.writingBoard
         this.transcription=""
@@ -10,11 +11,12 @@ class Sony{
         this.speakSony(obj.action,obj.writingBoard)
     }
     response(words){
-        if(words=="Qual é seu nome") this.board.innerHTML="EU sou Sony! E você?"
+        console.log("chamou!",words)
+        if(words=="Qual é o seu nome" || words=="qual é o seu nome"){this.audio.stop();this.board.innerHTML="EU sou Sony! E você?";setTimeout(e=>{this.btn.click()},3000)}
     }
     speakSony(btni,write){
         window.onload=e=>{
-            let btn = btni
+            this.btn = btni
             let board = write
             let esta_gravando=false
             if(this.speech){
@@ -23,12 +25,11 @@ class Sony{
                 this.audio.lang="pt-BR"
                 this.audio.onstart=e=>{
                     esta_gravando=true;
-                    btn.value="Ouvindo..."
-                    
+                    this.btn.value="Ouvindo..."
                 }
                 this.audio.onend=e=>{
                     esta_gravando=false;
-                    btn.value="Ouvir"
+                    this.btn.value="Ouvir"
                     console.log("parou de falar no onend")
                 }
                 this.audio.onresult=e=>{
@@ -37,10 +38,11 @@ class Sony{
                         result.isFinal?this.transcription+=result[0].transcript:this.transcription+=result[0].transcript
                     });
                     (this.transcription.split(" ").length>10)?this.audio.stop():0
-                    board.innerHTML=this.transcription// word input
+                    //board.innerHTML=this.transcription// word input
+                    this.response(this.transcription)
                     this.transcription=""
                 }
-                btn.addEventListener("click",e=>{
+                this.btn.addEventListener("click",e=>{
                     esta_gravando?this.audio.stop():this.audio.start()
                 })
                 board.innerHTML= this.speak
