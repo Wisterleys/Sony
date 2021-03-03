@@ -3,15 +3,28 @@ class Sony{
         this._speech = window.SpeechRecognition || window.webkitSpeechRecognition
         this._audio = this.speech?new this.speech():""
         this._btn=""
-        this._speak="Ola! Habilite seu microfone para falar comigo!";
+        this._speak="Ola! click em mim para falar comigo!";
         this._board = obj.writingBoard
         this._transcription=""
+        this._apprentice=false
         this.dataBase()
         this.speakSony(obj.action,obj.writingBoard)
     }
-    response(words){
-        console.log("chamou!",words)
-        if(words=="Qual é o seu nome" || words=="qual é o seu nome"){this.audio.stop();this.board.innerHTML="EU sou Sony! E você?";setTimeout(e=>{this.btn.click()},3000)}
+    choice(word){
+        word=="Modo aprendiz"||word=="modo aprendiz"||this.apprentice?this.apprenticeMode(word):this.sonyMode(word)
+    }
+    apprenticeMode(word){
+        this.apprentice=true;
+        board.innerHTML=`OK! O que deseja me ensinar?`
+        console.log("Modo aprendiz chamado ",word)
+        word=="Cor preta"||word=="cor preta"?document.body.style.background="black":0
+    }
+    sonyMode(word){
+        if(word){
+            board.innerHTML=`voce disse: <br><br> "${word}"`
+        } 
+        else board.innerHTML="Não ouvi nada"
+        
     }
     speakSony(btni,write){
         window.onload=e=>{
@@ -24,12 +37,16 @@ class Sony{
                 this.audio.lang="pt-BR"
                 this.audio.onstart=e=>{
                     esta_gravando=true;
-                    this.btn.value="Ouvindo..."
+                    this.btn.classList.remove("flashes")
+                    this.btn.classList.add("flashes")
+                    board.innerHTML="Ouvindo..."
                 }
                 this.audio.onend=e=>{
                     esta_gravando=false;
-                    this.btn.value="Ouvir"
+                    this.btn.classList.remove("flashes")
                     console.log("parou de falar no onend")
+                    this.choice(this.transcription)
+                    this.transcription=""
                 }
                 this.audio.onresult=e=>{
                     console.log("ouvindo");
@@ -38,8 +55,6 @@ class Sony{
                     });
                     (this.transcription.split(" ").length>10)?this.audio.stop():0
                     //board.innerHTML=this.transcription// word input
-                    this.response(this.transcription)
-                    this.transcription=""
                 }
                 this.btn.addEventListener("click",e=>{
                     esta_gravando?this.audio.stop():this.audio.start()
@@ -73,6 +88,8 @@ class Sony{
     }
     // ==============================================
     //GETs and SETs
+    get apprentice(){return this._apprentice;}
+    set apprentice(value){this._apprentice=value}
     get transcription(){return this._transcription;}
     set transcription(value){this._transcription=value}
     get board(){return this._board;}

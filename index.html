@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://image.shutterstock.com/image-vector/creative-professional-trendy-minimal-ia-260nw-1862130313.jpg" type="image/x-icon">
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-storage.js"></script>
@@ -13,7 +14,22 @@
         body{padding: 0; margin: 0;}
         main{width: 100%;margin: auto;}
         #imgS{position:relative;float:right;width:150px;}
-        #imgS img{width: 100%;object-fit: cover;object-position: top center;}
+        #sony{width: 100%;object-fit: cover;object-position: top center;outline: none;}
+        .flashes{
+           box-shadow: inset 0px 0px 20px red;
+           animation: flash infinite 1s;
+        }
+        @keyframes flash {
+            0%{
+                box-shadow: inset 0px 0px 20px red;
+            }
+            50%{
+                box-shadow: inset 0px 0px 1px red;
+            }
+            100%{
+                box-shadow: inset 0px 0px 20px red;
+            }
+        }
         div#board{
             position: absolute;
             top: 0;
@@ -41,8 +57,7 @@
 <body>
     <main>
         <figure id="imgS">
-            <img src="src/img/IA.png" alt="Sony">
-            <input type="button" value="Ouvir">
+            <input type="image" src="src/img/IA.png" alt="Sony" id="sony" class="">
            <div id="board">
             <div id="writeBoard"></div>
             <div id="pe"></div>
