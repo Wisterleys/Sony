@@ -4,7 +4,7 @@ class Sony{
         this.speech = window.SpeechRecognition || window.webkitSpeechRecognition
         this.audio = this.speech?new this.speech():""
         this.btn=""
-        this.speak="Ola! Meu nome é Sony, Habilite seu microfone para falar comigo!";
+        this.speak="Ola! Habilite seu microfone para falar comigo!";
         this.board = obj.writingBoard
         this.transcription=""
         this.dataBase()
@@ -20,8 +20,8 @@ class Sony{
             let board = write
             let esta_gravando=false
             if(this.speech){
-                this.audio.continuous=true
-                this.audio.interimResults=true
+                this.audio.continuous=false
+                this.audio.interimResults=false
                 this.audio.lang="pt-BR"
                 this.audio.onstart=e=>{
                     esta_gravando=true;
