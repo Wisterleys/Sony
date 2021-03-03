@@ -1,12 +1,11 @@
 class Sony{
-    #speak
     constructor(obj){
-        this.speech = window.SpeechRecognition || window.webkitSpeechRecognition
-        this.audio = this.speech?new this.speech():""
-        this.btn=""
-        this.speak="Ola! Habilite seu microfone para falar comigo!";
-        this.board = obj.writingBoard
-        this.transcription=""
+        this._speech = window.SpeechRecognition || window.webkitSpeechRecognition
+        this._audio = this.speech?new this.speech():""
+        this._btn=""
+        this._speak="Ola! Habilite seu microfone para falar comigo!";
+        this._board = obj.writingBoard
+        this._transcription=""
         this.dataBase()
         this.speakSony(obj.action,obj.writingBoard)
     }
@@ -73,4 +72,17 @@ class Sony{
           };
     }
     // ==============================================
+    //GETs and SETs
+    get transcription(){return this._transcription;}
+    set transcription(value){this._transcription=value}
+    get board(){return this._board;}
+    set board(value){this._board=value}
+    get speak(){return this._speak;}
+    set speak(value){this._speak=value}
+    get btn(){return this._btn;}
+    set btn(value){this._btn=value}
+    get audio(){return this._audio;}
+    set audio(value){this._audio=value}
+    get speech(){return this._speech;}
+    set speech(value){this._speech=value}
 }
