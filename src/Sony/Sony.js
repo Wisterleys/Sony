@@ -8,28 +8,28 @@ class Sony{
         this._transcription=""
         this._apprentice=false
         this.dataBase()
-        this.speakSony(obj.action,obj.writingBoard)
+        this.speakSony(obj.action)
     }
     choice(word){
         word=="Modo aprendiz"||word=="modo aprendiz"||this.apprentice?this.apprenticeMode(word):this.sonyMode(word)
     }
     apprenticeMode(word){
         this.apprentice=true;
-        board.innerHTML=`OK! O que deseja me ensinar?`
+        this.print(`OK! O que deseja me ensinar?`)
         console.log("Modo aprendiz chamado ",word)
         word=="Cor preta"||word=="cor preta"?document.body.style.background="black":0
     }
     sonyMode(word){
         if(word){
-            board.innerHTML=`voce disse: <br><br> "${word}"`
+            this.print(`voce disse: <br><br> "${word}"`)
         } 
-        else board.innerHTML="Não ouvi nada"
+        else this.print("Não ouvi nada")
         
     }
-    speakSony(btni,write){
+    print(word){this.board.innerHTML=word;}
+    speakSony(btni){
         window.onload=e=>{
             this.btn = btni
-            let board = write
             let esta_gravando=false
             if(this.speech){
                 this.audio.continuous=false
@@ -39,7 +39,7 @@ class Sony{
                     esta_gravando=true;
                     this.btn.classList.remove("flashes")
                     this.btn.classList.add("flashes")
-                    board.innerHTML="Ouvindo..."
+                    this.print("Ouvindo...")
                 }
                 this.audio.onend=e=>{
                     esta_gravando=false;
@@ -54,13 +54,13 @@ class Sony{
                         result.isFinal?this.transcription+=result[0].transcript:this.transcription+=result[0].transcript
                     });
                     (this.transcription.split(" ").length>10)?this.audio.stop():0
-                    //board.innerHTML=this.transcription// word input
+                   
                 }
                 this.btn.addEventListener("click",e=>{
                     esta_gravando?this.audio.stop():this.audio.start()
                 })
-                board.innerHTML= this.speak
-                }else board.innerHTML="Desculpe! Seu navegador não tem suporte para eu te ouvir!"
+                this.print(this.speak)
+                }else this.print("Desculpe! Seu navegador não tem suporte para eu te ouvir!")
         }
     }
     //DATABASE 
